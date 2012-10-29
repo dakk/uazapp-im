@@ -5,10 +5,9 @@ import random
 import e3
 import gobject
 import time
-import api
 
 import logging
-log = logging.getLogger('dummy.Worker')
+log = logging.getLogger('whatsapp.Worker')
 
 class Worker(e3.Worker):
     '''dummy Worker implementation to make it easy to test emesene'''

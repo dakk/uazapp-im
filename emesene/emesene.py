@@ -114,6 +114,13 @@ except ImportError, exc:
     print 'Errors occurred while importing xmpp backend: %s' % str(exc)
 
 try:
+	from e3 import whatsapp
+except ImportError, exc:
+    whatsapp = None
+    print 'Errors occurred while importing whatsapp backend: %s' % str(exc)
+
+
+try:
     from gui import qt4ui
 except ImportError, exc:
     log.error('Cannot import qtui: %s' % str(exc))
@@ -192,6 +199,10 @@ class Controller(object):
         if xmpp is not None:
             extension.register('session', xmpp.Session)
             extension.set_default('session', xmpp.Session)
+            
+        if whatsapp is not None:
+            extension.register('session', whatsapp.Session)
+            extension.set_default('session', whatsapp.Session)
 
         if papylib is not None:
             extension.register('session', papylib.Session)

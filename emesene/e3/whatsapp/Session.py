@@ -10,8 +10,7 @@ class Session(e3.Session):
     AUTHOR = 'Davide Gessa'
     WEBSITE = 'davidegessa.wordpress.com'
 
-    SERVICES = 
-    {
+    SERVICES = {
         "whatsapp": 
         {
             "host": "dummy.server.com",
