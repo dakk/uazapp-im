@@ -1,70 +1,42 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"> 
-<head> 
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-    <title>Emesene Facebook Integration</title>
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Uazapp-im by dakk</title>
 
-<script type="text/javascript" charset="utf-8">
-//<![CDATA[
-        function init() {
-            document.addEventListener("deviceready", showRecipe, true);
-        }
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Uazapp-im</h1>
+        <p class="header">uazzap-im is an instant messenger forked from emesene capable of connecting to whatsapp from your desktop</p>
 
-        function getAttributes()
-        {
-            document.$_GET = [];
-            var urlHalves = String(document.location).split('#');
-            if(urlHalves[1]){
-                var urlVars = urlHalves[1].split('&');
-                for(var i = 0; i <= (urlVars.length); i++){
-                    if(urlVars[i]){
-                        var urlVarPair = urlVars[i].split('=');
-                        document.$_GET[urlVarPair[0]] = urlVarPair[1];
-                    }
-                }
-            }
-        }
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/dakk/uazapp-im/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/dakk/uazapp-im/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/dakk/uazapp-im">View On GitHub</a></li>
+        </ul>
 
-        function showRecipe() {
-            getAttributes();
-            document.getElementById('selectedReceipe').innerHTML = document.$_GET['access_token'];
-        }
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/dakk">dakk</a></p>
 
-        function gotFS(fileSystem) {
-            fileSystem.root.getDirectory("LeMieRicette", {create: true, exclusive: false}, directoryFS, fail);
-        }
 
-        function directoryFS(fileSystem) {
-            fileSystem.getFile(document.$_GET['ricetta'], {create: true}, gotFileEntry, fail); 
-        }
-
-        function gotFileEntry(fileEntry) {
-            fileEntry.file(readRecipe, fail);
-        }
-
-        function readRecipe(file) {
-            var reader = new FileReader();
-            reader.onloadend = function(evt) {
-                console.log("read success");
-                console.log(evt.target.result);
-                document.getElementById('selectedReceipe').innerHTML = evt.target.result;
-            };
-            reader.readAsText(file);
-        }
-
-        function fail(err) {
-            alert("Error processing SQL: " + err.code);
-        }
-
-        function successCB() {
-            alert("success!");
-        }
-//]]>
-    </script>
-</head>
-<body> 
-    <h1 id="pageTitle"></h1> 
-    <div style="text-align: center"><img src="emesenefb.png" alt="emesenefb"/></div>
-    <div style="text-align: center">emesene is now connected to your Facebook account!</div>
-</body> 
+      </header>
+      <section>
+        <h3>Uazzapp-im</h3>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
 </html>
