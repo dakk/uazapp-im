@@ -1,4 +1,4 @@
-from api.handlers.base import BaseHandler
+from base import BaseHandler
 
 class MessageReceivedServer(BaseHandler):
     TAG = "message"

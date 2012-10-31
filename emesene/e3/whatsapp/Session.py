@@ -2,6 +2,9 @@ import Worker
 import e3
 import extension
 import gobject
+import os
+import sys
+
 
 class Session(e3.Session):
     '''a specialization of e3.Session'''
@@ -18,13 +21,13 @@ class Session(e3.Session):
         }
     }
 
-    CAPABILITIES = [e3.Session.SERVICE_CONTACT_INVITE,
-                    e3.Session.SERVICE_PROFILE_PICTURE,
-                    e3.Session.SERVICE_STATUS,
+    CAPABILITIES = [e3.Session.SERVICE_PROFILE_PICTURE,
+					e3.Session.SERVICE_STATUS,
                     e3.Session.SERVICE_CONTACT_NICK,
                     e3.Session.SERVICE_CONTACT_PM,
-                    e3.Session.SERVICE_ENDPOINTS,
-                    e3.Session.SERVICE_GROUP_MANAGING]
+                    e3.Session.SERVICE_ENDPOINTS
+                    ]
+                    
 
     def __init__(self, id_=None, account=None):
         '''constructor'''
@@ -36,6 +39,7 @@ class Session(e3.Session):
         self.account = e3.Account(account, password, status, host)
         worker = Worker.Worker(self, proxy, use_http, use_ipv6)
         worker.start()
+
 
         self.add_action(e3.Action.ACTION_LOGIN, (account, password, status))
 

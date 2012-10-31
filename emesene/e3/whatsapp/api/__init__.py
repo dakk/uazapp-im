@@ -1,1 +1,1 @@
-from api.waclient import WAClient
+from waclient import WAClient

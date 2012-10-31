@@ -1,5 +1,5 @@
-from api.handlers.base import BaseHandler
-from api.sasl import SASL
+from base import BaseHandler
+import sasl
 
 class Sasl(BaseHandler):
     NS = "urn:ietf:params:xml:ns:xmpp-sasl"

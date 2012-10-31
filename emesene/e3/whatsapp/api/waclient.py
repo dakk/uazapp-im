@@ -8,9 +8,9 @@ import time
 import urllib2
 from xml.etree import ElementTree as ET
 
-from api import funxmpp
-from api import handlers
-from api.sasl import SASL
+import funxmpp
+import handlers
+from sasl import SASL
 
 WHATSAPP_ADDRESS = ('bin-short.whatsapp.net', 5222)
 
@@ -47,7 +47,7 @@ class WAClient:
         for name in handlers.__all__:
             # foo_bar to FooBar (CamelCase)
             modname = ''.join(map(str.capitalize, name.split('_')))
-            m = __import__('api.handlers.%s' % name, globals(), None, modname)
+            m = __import__('handlers.%s' % name, globals(), None, modname)
             m = getattr(m, modname)
             self.handlers.append(m(self))
 
