@@ -62,17 +62,10 @@ class Worker(e3.Worker, api.WAClient):
             nick, msg, status_, alias, blocked)
 
     def _add_group(self, name):
-        """
-        method to add a group to the contact list
-        """
-        self.session.groups[name] = e3.Group(name, name)
+        pass
 
     def _add_contact_to_group(self, account, group):
-        """
-        method to add a contact to a group
-        """
-        self.session.groups[group].contacts.append(account)
-        self.session.contacts.contacts[account].groups.append(group)
+        pass
 
     # action handlers
     def _handle_action_add_contact(self, account):
@@ -81,14 +74,10 @@ class Worker(e3.Worker, api.WAClient):
         self.session.contact_add_succeed(account)
 
     def _handle_action_add_group(self, name):
-        '''handle Action.ACTION_ADD_GROUP
-        '''
-        self.session.group_add_succeed(name)
+        pass
 
     def _handle_action_add_to_group(self, account, gid):
-        '''handle Action.ACTION_ADD_TO_GROUP
-        '''
-        self.session.group_add_contact_succeed(gid, account)
+        pass
 
     def _handle_action_block_contact(self, account):
         '''handle Action.ACTION_BLOCK_CONTACT
@@ -101,11 +90,15 @@ class Worker(e3.Worker, api.WAClient):
         self.session.contact_unblock_succeed(account)
 
     def _handle_action_change_status(self, status_):
-        '''handle Action.ACTION_CHANGE_STATUS
-        '''
+        '''handle Action.ACTION_CHANGE_STATUS'''
         self.session.account.status = status_
         self.session.contacts.me.status = status_
         self.session.status_change_succeed(status_)
+        
+        if status_ == 1:
+            self.send_presence("invisible", account)
+        else:
+            self.send_presence("available", account)
 
 
 
@@ -127,6 +120,8 @@ class Worker(e3.Worker, api.WAClient):
             self.chat_add_error(uid, str(e))
             
             
+    def _wa_last_seen_received(self, sender, seconds):
+        print "LAST SEEN RESPONSE:", sender, seconds
     
     def _wa_event_socket_recv(self, sock, condition):
         self.recv_and_handle()
@@ -164,10 +159,10 @@ class Worker(e3.Worker, api.WAClient):
         else:
             type_ = e3.Message.TYPE_MESSAGE
 
-        msgobj = e3.Message(type_, body, account)
+        msgobj = e3.Message(type_, body, account, display_name=realname)
         # override font size!
         msgobj.style.size = self.session.config.i_font_size
-        self.session.conv_message(cid, realname, msgobj)
+        self.session.conv_message(cid, account, msgobj)
         # log message
         e3.Logger.log_message(self.session, None, msgobj, False)
         
@@ -181,7 +176,7 @@ class Worker(e3.Worker, api.WAClient):
         
 		#TODO: replace status with the name
         #print account, hashlib.md5(password[::-1]).hexdigest()
-        api.WAClient.__init__(self, account, hashlib.md5(password[::-1]).hexdigest(), 'testuser')
+        api.WAClient.__init__(self, account, hashlib.md5(password[::-1]).hexdigest(), account)
         
         
         self.callback_command = self._wa_callback_command
@@ -191,6 +186,7 @@ class Worker(e3.Worker, api.WAClient):
         self.set_event_handler('connected', self._wa_connected)
         self.set_event_handler('login_failed', self._wa_login_failed)
         self.set_event_handler('message_received', self._wa_message_received)
+        self.set_event_handler('last_seen_received', self._wa_last_seen_received)
         
         
         """
@@ -205,18 +201,27 @@ class Worker(e3.Worker, api.WAClient):
         """
         self.connect()
         
-        
-        #TODO: check if this code is in the wrong place
-        self.session.login_succeed()
-        #self.session.nick_change_succeed('dummy nick is dummy')
-        self.session.contact_list_ready()
-        
         gobject.io_add_watch(self.socket, gobject.IO_IN, self._wa_event_socket_recv)
         
-                
-		#TEST
+             
         time.sleep(3)
+        self.session.login_succeed()
+        self.session.contact_list_ready()
+        
+        self._handle_action_set_nick(account)
+        
+        self.session.contacts.me.status = self.session.account.status
+        self.send_presence("available", account)
+        
+        
+        # Your account
+        #tmp_cont = e3.base.Contact(account, 1, account, account, e3.status.BUSY, '', True)
+        #self.session.contacts.contacts[account] = tmp_cont
+        
+                
+		#TEST        
         self.send_message("393471217796", "test")
+        
         
         
 
@@ -225,9 +230,7 @@ class Worker(e3.Worker, api.WAClient):
         self.disconnect()
 
     def _handle_action_move_to_group(self, account, src_gid, dest_gid):
-        '''handle Action.ACTION_MOVE_TO_GROUP'''
-        
-        self.session.contact_move_succeed(account, src_gid, dest_gid)
+        pass
 
     def _handle_action_remove_contact(self, account):
         '''handle Action.ACTION_REMOVE_CONTACT
@@ -235,23 +238,17 @@ class Worker(e3.Worker, api.WAClient):
         self.session.contact_remove_succeed(account)
 
     def _handle_action_reject_contact(self, account):
-        '''handle Action.ACTION_REJECT_CONTACT
-        '''
-        self.session.contact_reject_succeed(account)
+        pass
 
     def _handle_action_remove_from_group(self, account, gid):
-        '''handle Action.ACTION_REMOVE_FROM_GROUP
-        '''
-        self.session.group_remove_contact_succeed(gid, account)
+        pass
 
     def _handle_action_remove_group(self, gid):
-        '''handle Action.ACTION_REMOVE_GROUP
-        '''
-        self.session.group_remove_succeed(gid)
+        pass
 
     def _handle_action_rename_group(self, gid, name):
-        '''handle Action.ACTION_RENAME_GROUP'''
-        self.session.group_rename_succeed(gid, name)
+        pass
+       
 
     def _handle_action_set_contact_alias(self, account, alias):
         '''handle Action.ACTION_SET_CONTACT_ALIAS'''
@@ -264,7 +261,10 @@ class Worker(e3.Worker, api.WAClient):
     def _handle_action_set_nick(self, nick):
         '''handle Action.ACTION_SET_NICK'''
         self.set_name(nick)
+        self.send_presence()
+        self.session.contacts.me.nick = nick
         self.session.nick_change_succeed(nick)
+
 
     def _handle_action_set_picture(self, picture_name):
         '''handle Action.ACTION_SET_PICTURE

@@ -21,13 +21,14 @@ class Session(e3.Session):
         }
     }
 
-    CAPABILITIES = [e3.Session.SERVICE_PROFILE_PICTURE,
-					e3.Session.SERVICE_STATUS,
-                    e3.Session.SERVICE_CONTACT_NICK,
+    CAPABILITIES = [e3.Session.SERVICE_CONTACT_NICK,
+                    e3.Session.SERVICE_STATUS,
                     e3.Session.SERVICE_CONTACT_PM,
-                    e3.Session.SERVICE_ENDPOINTS
+                    e3.Session.SERVICE_CONTACT_MANAGING, 
+                    e3.Session.SERVICE_CONTACT_ALIAS
                     ]
-                    
+
+    #e3.Session.SERVICE_PROFILE_PICTURE, e3.Session.SERVICE_STATUS,
 
     def __init__(self, id_=None, account=None):
         '''constructor'''
