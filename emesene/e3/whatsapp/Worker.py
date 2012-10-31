@@ -199,7 +199,12 @@ class Worker(e3.Worker, api.WAClient):
                 self.message_received_at_client)
         self.set_event_handler('chatstate_changed', self.chatstate_changed)
         """
-        self.connect()
+        
+        try:
+            self.connect()
+        except:
+            self.session.disconnected(_("Network problem"), True)
+            return
         
         gobject.io_add_watch(self.socket, gobject.IO_IN, self._wa_event_socket_recv)
         

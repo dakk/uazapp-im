@@ -107,11 +107,11 @@ try:
 except ImportError, exc:
     print 'Cannot import gtkui: %s' % str(exc)
 
-try:
-    from e3 import xmpp
-except ImportError, exc:
-    xmpp = None
-    print 'Errors occurred while importing xmpp backend: %s' % str(exc)
+#try:
+#    from e3 import xmpp
+#except ImportError, exc:
+xmpp = None
+#    print 'Errors occurred while importing xmpp backend: %s' % str(exc)
 
 try:
 	from e3 import whatsapp
@@ -125,16 +125,16 @@ try:
 except ImportError, exc:
     log.error('Cannot import qtui: %s' % str(exc))
 
-try:
-    from e3 import papylib
-except ImportError, exc:
-    papylib = None
-    print 'Errors occurred while importing msn backend: %s' % str(exc)
+#try:
+#    from e3 import papylib
+#except ImportError, exc:
+papylib = None
+#    print 'Errors occurred while importing msn backend: %s' % str(exc)
 
-try:
-    from e3 import webqq
-except ImportError , exc:
-    webqq = None
+#try:
+#    from e3 import webqq
+#except ImportError , exc:
+webqq = None
 
 from e3.common.pluginmanager import get_pluginmanager
 import interfaces
@@ -187,26 +187,26 @@ class Controller(object):
 
     def _setup(self):
         '''register core extensions'''
-        extension.category_register('session', dummy.Session,
-                single_instance=True)
-        if Info.EMESENE_VERSION.endswith("dev"):
-            extension.register('session', dummy.Session)
+        #extension.category_register('session', dummy.Session,
+        #        single_instance=True)
+        #if Info.EMESENE_VERSION.endswith("dev"):
+        #    extension.register('session', dummy.Session)
 
-        if webqq is not None:
-            extension.register('session', webqq.Session)
-            extension.set_default('session', webqq.Session)
+        #if webqq is not None:
+        #    extension.register('session', webqq.Session)
+        #    extension.set_default('session', webqq.Session)
 
-        if xmpp is not None:
-            extension.register('session', xmpp.Session)
-            extension.set_default('session', xmpp.Session)
+        #if xmpp is not None:
+        #    extension.register('session', xmpp.Session)
+        #    extension.set_default('session', xmpp.Session)
             
         if whatsapp is not None:
             extension.register('session', whatsapp.Session)
             extension.set_default('session', whatsapp.Session)
 
-        if papylib is not None:
-            extension.register('session', papylib.Session)
-            extension.set_default('session', papylib.Session)
+        #if papylib is not None:
+        #    extension.register('session', papylib.Session)
+        #    extension.set_default('session', papylib.Session)
 
         #external API stuff
         self.dbus_ext = extension.get_and_instantiate('external api')
