@@ -100,7 +100,7 @@ import logging
 log = logging.getLogger('emesene')
 
 import e3
-from e3 import dummy
+#from e3 import dummy
 
 try:
     from gui import gtkui
@@ -826,7 +826,7 @@ def main():
     """
     the main method of emesene
     """
-    extension.category_register('session', dummy.Session, single_instance=True)
+    #extension.category_register('session', dummy.Session, single_instance=True)
     extension.category_register('option provider', None,
             interfaces=interfaces.IOptionProvider)
     extension.register('quit', sys.exit)

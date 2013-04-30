@@ -5,15 +5,58 @@ import random
 import e3
 import gobject
 import time
+import os
+import base64
 
-import api
 import hashlib
+from Yowsup.Common.utilities import Utilities
+from Yowsup.Common.debugger import Debugger
+from Yowsup.Common.constants import Constants
+from Yowsup.ConnectionIO.protocoltreenode import ProtocolTreeNode
+from Yowsup.connectionmanager import YowsupConnectionManager
 
 import logging
 log = logging.getLogger('whatsapp.Worker')
+logging.basicConfig(filename='example.log', filemode='w', level=logging.DEBUG)
 
 
-class Worker(e3.Worker, api.WAClient):
+# Get credentials from file
+def getCredentials(config):
+    if os.path.isfile(config):
+        f = open(config)
+        
+        phone = ""
+        idx = ""
+        pw = ""
+        cc = ""
+        
+        try:
+            for l in f:
+                line = l.strip()
+                if len(line) and line[0] not in ('#',';'):
+                    
+                    prep = line.split('#', 1)[0].split(';', 1)[0].split('=', 1)
+                    
+                    varname = prep[0].strip()
+                    val = prep[1].strip()
+                    
+                    if varname == "phone":
+                        phone = val
+                    elif varname == "id":
+                        idx = val
+                    elif varname =="password":
+                        pw =val
+                    elif varname == "cc":
+                        cc = val
+
+            return [cc, phone, idx, pw]
+        except:
+            pass
+
+    return 0
+    
+
+class Worker(e3.Worker): #, api.WAClient):
     '''dummy Worker implementation to make it easy to test emesene'''
 
     def __init__(self, session, proxy, use_http=False, use_ipv6=False):
@@ -22,6 +65,21 @@ class Worker(e3.Worker, api.WAClient):
         
         self.conversations = {}
         self.rconversations = {}
+        self.credentials = None
+        self.state = False
+        
+        connectionManager = YowsupConnectionManager()
+        connectionManager.setAutoPong(True) #keepAlive)
+        self.signalsInterface = connectionManager.getSignalsInterface()
+        self.methodsInterface = connectionManager.getMethodsInterface()
+        
+        
+        self.signalsInterface.registerListener("auth_success", self.onAuthSuccess)
+        self.signalsInterface.registerListener("auth_fail", self.onAuthFailed)
+        self.signalsInterface.registerListener("message_received", self.onMessageReceived)
+		#self.signalsInterface.registerListener("receipt_messageSent", self.onMessageSent)
+		#self.signalsInterface.registerListener("presence_updated", self.onPresenceUpdated)
+		#self.signalsInterface.registerListener("disconnected", self.onDisconnected)
         
 
     def _add_pending_contacts(self):
@@ -100,19 +158,34 @@ class Worker(e3.Worker, api.WAClient):
         else:
             self.send_presence("available", account)
 
-
-
-    def _wa_login_succeeded(self, status, kind, creation, expiration):
-        log.info("Login succeeded")
-        
-    def _wa_connected(self):
-        log.info("Connected")
-        
-    def _wa_login_failed(self):
-        log.info("Login failed")
+    # Whatsapp signals		
+    def onPresenceUpdated(self, jid, lastSeen):
+        formattedDate = datetime.datetime.fromtimestamp(long(time.time()) - lastSeen).strftime('%d-%m-%Y %H:%M')
+        #self.onMessageReceived(0, jid, "LAST SEEN RESULT: %s"%formattedDate, long(time.time()), False)
+        print jid
+		
+    def onAuthFailed(self, username, err):
+        log.info("Login failed for "+username)
+        print "Login failed for "+username
+        self.state = False
         self.session.disconnected(_("Login failed"), False)
-	
-	
+        
+		
+    def onAuthSuccess(self, username):
+        log.info("Login succeeded for "+username)
+        print "Login succeeded for "+username
+        self.state = True
+        
+        self._handle_action_set_nick(username)
+        self.methodsInterface.call("ready")
+		
+
+    def onMessageReceived(self, messageId, jid, messageContent, timestamp, wantsReceipt, pushName, isBroadcast):
+        self._on_message({'id':messageId, 'from':{'jid':jid, 'realname':pushName}, 'type':'chat', 'body':messageContent})
+        if wantsReceipt:
+            self.methodsInterface.call("message_ack", (jid, messageId))
+			
+    """
     def _wa_callback_command(self, uid, command, args):
         try:
             pass
@@ -127,14 +200,7 @@ class Worker(e3.Worker, api.WAClient):
         self.recv_and_handle()
         return True
         
-    def _wa_message_received(self, message_id, sender, message, realname, offline_stamp):
-        if offline_stamp is not None:
-            offline_stamp = time.strftime("%Y-%m-%d %H:%M:%S", offline_stamp)
-        print "%s (%s, %s): %s" % (realname, sender.split('@')[0],
-                offline_stamp, message)
-                
-        self._on_message({'id':message_id, 'from':{'jid':sender, 'realname':realname}, 'type':'chat', 'body':message})
-        
+    """    
     
     def _on_message(self, message):
         '''handle the reception of a message'''
@@ -166,27 +232,34 @@ class Worker(e3.Worker, api.WAClient):
         # log message
         e3.Logger.log_message(self.session, None, msgobj, False)
         
-        self.send_message_ack(account, message['id'])
-        
-                	
+                    
     def _handle_action_login(self, account, password, status_):
         '''handle Action.ACTION_LOGIN'''
                 
         self.session.login_started()
         
-		#TODO: replace status with the name
+        self.credentials = getCredentials ("config.example")
+        print self.credentials
+        
+        self.methodsInterface.call ("auth_login", (self.credentials[1], base64.b64decode(bytes(self.credentials[3].encode('utf-8'))))) #self.credentials[3]))
+
+        while not self.state:
+            time.sleep(0.5)
+        
+        
+        #TODO: replace status with the name
         #print account, hashlib.md5(password[::-1]).hexdigest()
-        api.WAClient.__init__(self, account, hashlib.md5(password[::-1]).hexdigest(), account)
+        #api.WAClient.__init__(self, account, hashlib.md5(password[::-1]).hexdigest(), account)
         
         
-        self.callback_command = self._wa_callback_command
+        #self.callback_command = self._wa_callback_command
         
         
-        self.set_event_handler('login_succeeded', self._wa_login_succeeded)
-        self.set_event_handler('connected', self._wa_connected)
-        self.set_event_handler('login_failed', self._wa_login_failed)
-        self.set_event_handler('message_received', self._wa_message_received)
-        self.set_event_handler('last_seen_received', self._wa_last_seen_received)
+        #self.set_event_handler('login_succeeded', self._wa_login_succeeded)
+        #self.set_event_handler('connected', self._wa_connected)
+        #self.set_event_handler('login_failed', self._wa_login_failed)
+        #self.set_event_handler('message_received', self._wa_message_received)
+        #self.set_event_handler('last_seen_received', self._wa_last_seen_received)
         
         
         """
@@ -200,23 +273,18 @@ class Worker(e3.Worker, api.WAClient):
         self.set_event_handler('chatstate_changed', self.chatstate_changed)
         """
         
-        try:
-            self.connect()
-        except:
-            self.session.disconnected(_("Network problem"), True)
-            return
         
-        gobject.io_add_watch(self.socket, gobject.IO_IN, self._wa_event_socket_recv)
+        #gobject.io_add_watch(self.socket, gobject.IO_IN, self._wa_event_socket_recv)
         
              
-        time.sleep(3)
+        #time.sleep(1)
         self.session.login_succeed()
         self.session.contact_list_ready()
         
-        self._handle_action_set_nick(account)
+        #self._handle_action_set_nick(account)
         
         self.session.contacts.me.status = self.session.account.status
-        self.send_presence("available", account)
+        #self.send_presence("available", account)
         
         
         # Your account
@@ -224,8 +292,8 @@ class Worker(e3.Worker, api.WAClient):
         #self.session.contacts.contacts[account] = tmp_cont
         
                 
-		#TEST        
-        self.send_message("393471217796", "test")
+        #TEST        
+        #self.send_message("393471217796", "test")
         
         
         
@@ -265,10 +333,12 @@ class Worker(e3.Worker, api.WAClient):
 
     def _handle_action_set_nick(self, nick):
         '''handle Action.ACTION_SET_NICK'''
-        self.set_name(nick)
-        self.send_presence()
+        #self.set_name(nick)
+        #self.send_presence()
         self.session.contacts.me.nick = nick
         self.session.nick_change_succeed(nick)
+        
+        #TODO handle whatsapp
 
 
     def _handle_action_set_picture(self, picture_name):
@@ -298,7 +368,9 @@ class Worker(e3.Worker, api.WAClient):
 
         recipients = self.rconversations.get(cid, ())
         for recipient in recipients:
-            self.send_message(recipient.split('@')[0], message.body)
+            #self.send_message(recipient.split('@')[0], message.body)
+            msgId = self.methodsInterface.call("message_send", (recipient.split('@')[0], message.body))
+			#self.sentCache[msgId] = [int(time.time()), message]
 
 
         e3.Logger.log_message(self.session, recipients, message, True)
