@@ -45,6 +45,7 @@ class Session(e3.Session):
         self.add_action(e3.Action.ACTION_LOGIN, (account, password, status))
 
     def send_message(self, cid, text, style=None, cedict=None, celist=None):
+        print "send_message"
         '''send a common message'''
         if cedict is None:
             cedict = {}
@@ -53,8 +54,7 @@ class Session(e3.Session):
             celist = []
 
         account = self.account.account
-        message = e3.Message(e3.Message.TYPE_MESSAGE, text, account,
-            style)
+        message = e3.Message(e3.Message.TYPE_MESSAGE, text, account, style)
         self.add_action(e3.Action.ACTION_SEND_MESSAGE, (cid, message))
 
     def send_typing_notification(self, cid):

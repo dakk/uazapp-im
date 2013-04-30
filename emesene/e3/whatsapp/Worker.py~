@@ -69,7 +69,7 @@ class Worker(e3.Worker): #, api.WAClient):
         self.state = False
         
         connectionManager = YowsupConnectionManager()
-        connectionManager.setAutoPong(True)
+        connectionManager.setAutoPong(True) #keepAlive)
         self.signalsInterface = connectionManager.getSignalsInterface()
         self.methodsInterface = connectionManager.getMethodsInterface()
         

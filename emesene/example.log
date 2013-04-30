@@ -1,1 +1,10 @@
+INFO:whatsapp.Worker:Login succeeded for 393471217796
+DEBUG:pluginmanager:Imported plugins: 
+DEBUG:pluginmanager:Imported plugins: 
+DEBUG:gui.base.ConversationManager:Constructing a new conversation: 1367361376.005889
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367361376.005889
+DEBUG:gui.base.ConversationManager:No similar conversation was found
+DEBUG:gui.base.ConversationManager:Returning a new conversation
+DEBUG:gui.base.ConversationManager:Closing conversation: 1367361376.005889
+DEBUG:gui.base.ConversationManager:Closing the conversation window
 DEBUG:e3.base.Worker:closing thread
