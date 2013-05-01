@@ -68,10 +68,10 @@ class Worker(e3.Worker): #, api.WAClient):
         self.credentials = None
         self.state = False
         
-        connectionManager = YowsupConnectionManager()
-        connectionManager.setAutoPong(False)
-        self.signalsInterface = connectionManager.getSignalsInterface()
-        self.methodsInterface = connectionManager.getMethodsInterface()
+        self.connectionManager = YowsupConnectionManager()
+        self.connectionManager.setAutoPong(False)
+        self.signalsInterface = self.connectionManager.getSignalsInterface()
+        self.methodsInterface = self.connectionManager.getMethodsInterface()
         
         
         self.signalsInterface.registerListener("auth_success", self.onAuthSuccess)
@@ -82,6 +82,7 @@ class Worker(e3.Worker): #, api.WAClient):
         self.signalsInterface.registerListener("group_gotParticipants", self.onGroupGotPartecipants)
 		#self.signalsInterface.registerListener("receipt_messageSent", self.onMessageSent)
         self.signalsInterface.registerListener("presence_updated", self.onPresenceUpdated)
+        self.signalsInterface.registerListener("group_gotInfo", self.onGroupGotInfo)
 		#self.signalsInterface.registerListener("disconnected", self.onDisconnected)
         
 
@@ -122,7 +123,10 @@ class Worker(e3.Worker): #, api.WAClient):
         
     def _add_contact(self, mail, nick, status_, alias, blocked, msg="..."):
         self.session.contacts.contacts[mail] = e3.Contact(mail, mail, nick, msg, status_, alias, blocked)
-
+        
+        #self.methodsInterface.call("picture_get", (mail))
+        #self.connectionManager.sendGetPicture (mail.encode('utf-8'))
+        
     """
     def _add_group(self, name):
         pass
@@ -203,9 +207,19 @@ class Worker(e3.Worker): #, api.WAClient):
         #tmp_cont = e3.base.Contact(account, 1, account, account, e3.status.BUSY, '', True)
         #self.session.contacts.contacts[account] = tmp_cont		
         
-    def onGroupGotPartecipants(self, nul):
-        print nul
-        pass
+            
+    def onGroupGotPartecipants(self, group, parts):
+        g = ""
+        for part in parts:
+            if not self._check_if_contact_exist (part):
+                self._add_contact(part, part, e3.status.ONLINE, part, False, "")
+            
+        
+    def onGroupGotInfo(self, info):
+        print "infoooooooooooooooooooooooooooooooo"
+        print info
+        print "infoooooooooooooooooooooooooooooooo"
+    
         
     def onGroupMessageReceived(self, msgId, fromAttribute, author, msgData, timestamp, wantsReceipt, pushName):
         print "You got a group message!"
@@ -217,6 +231,8 @@ class Worker(e3.Worker): #, api.WAClient):
             #print fromAttribute
             #self.methodsInterface.call ("group_getInfo", (fromAttribute))
             #self.methodsInterface.call ("group_getParticipants", (fromAttribute))
+            self.connectionManager.sendGetParticipants (fromAttribute)
+            #self.connectionManager.sendGetGroupInfo (fromAttribute)
             self._add_contact(fromAttribute, "Group chat", e3.status.ONLINE, "Group chat", False, "")
             
         # Add the single contact
@@ -226,8 +242,8 @@ class Worker(e3.Worker): #, api.WAClient):
             
         self._on_group_message({'id':msgId, 'from':{'jid':author, 'realname':pushName}, 'type':'chat', 'body':msgData}, fromAttribute)
         #TODO enable ack
-        #if wantsReceipt:
-        #    self.methodsInterface.call("message_ack", (jid, messageId))
+        if wantsReceipt:
+            self.methodsInterface.call("message_ack", (fromAttribute, msgId))
     
     
     def onMessageReceived(self, messageId, jid, messageContent, timestamp, wantsReceipt, pushName, isBroadcast):
@@ -239,8 +255,8 @@ class Worker(e3.Worker): #, api.WAClient):
                 
         self._on_message({'id':messageId, 'from':{'jid':jid, 'realname':pushName}, 'type':'chat', 'body':messageContent})
         #TODO enable ack
-        #if wantsReceipt:
-        #    self.methodsInterface.call("message_ack", (jid, messageId))
+        if wantsReceipt:
+            self.methodsInterface.call("message_ack", (jid, messageId))
 			
 
 
