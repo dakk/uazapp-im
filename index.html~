@@ -95,7 +95,7 @@
                     <div id="screenModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h3 id="myModalLabel">Gallery</h3>
+                        <h3 id="myModalLabel">Screenshoot gallery</h3>
                         </div>
                         <div class="modal-body">
                         <div align="center"><img src="screens/1.png" width="100%"/></div>
