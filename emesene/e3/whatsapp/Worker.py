@@ -69,7 +69,7 @@ class Worker(e3.Worker): #, api.WAClient):
         self.state = False
         
         connectionManager = YowsupConnectionManager()
-        connectionManager.setAutoPong(True)
+        connectionManager.setAutoPong(False)
         self.signalsInterface = connectionManager.getSignalsInterface()
         self.methodsInterface = connectionManager.getMethodsInterface()
         
@@ -77,6 +77,9 @@ class Worker(e3.Worker): #, api.WAClient):
         self.signalsInterface.registerListener("auth_success", self.onAuthSuccess)
         self.signalsInterface.registerListener("auth_fail", self.onAuthFailed)
         self.signalsInterface.registerListener("message_received", self.onMessageReceived)
+        
+        self.signalsInterface.registerListener("group_messageReceived", self.onGroupMessageReceived)
+        self.signalsInterface.registerListener("group_gotParticipants", self.onGroupGotPartecipants)
 		#self.signalsInterface.registerListener("receipt_messageSent", self.onMessageSent)
         self.signalsInterface.registerListener("presence_updated", self.onPresenceUpdated)
 		#self.signalsInterface.registerListener("disconnected", self.onDisconnected)
@@ -114,12 +117,11 @@ class Worker(e3.Worker): #, api.WAClient):
         return False
     """
     
+    def _check_if_contact_exist(self, mail):
+        mail in self.session.contacts.contacts
+        
     def _add_contact(self, mail, nick, status_, alias, blocked, msg="..."):
-        """
-        method to add a contact to the contact list
-        """
-        self.session.contacts.contacts[mail] = e3.Contact(mail, mail,
-            nick, msg, status_, alias, blocked)
+        self.session.contacts.contacts[mail] = e3.Contact(mail, mail, nick, msg, status_, alias, blocked)
 
     """
     def _add_group(self, name):
@@ -201,12 +203,39 @@ class Worker(e3.Worker): #, api.WAClient):
         #tmp_cont = e3.base.Contact(account, 1, account, account, e3.status.BUSY, '', True)
         #self.session.contacts.contacts[account] = tmp_cont		
         
+    def onGroupGotPartecipants(self, nul):
+        print nul
+        pass
         
-
+    def onGroupMessageReceived(self, msgId, fromAttribute, author, msgData, timestamp, wantsReceipt, pushName):
+        print "You got a group message!"
+        print "%s (%s, %s): %s" % (pushName, author, timestamp, msgData)
+        print fromAttribute
+        
+        # Add the group
+        if not self._check_if_contact_exist (fromAttribute):
+            #print fromAttribute
+            #self.methodsInterface.call ("group_getInfo", (fromAttribute))
+            #self.methodsInterface.call ("group_getParticipants", (fromAttribute))
+            self._add_contact(fromAttribute, "Group chat", e3.status.ONLINE, "Group chat", False, "")
+            
+        # Add the single contact
+        if not self._check_if_contact_exist (author):
+            self._add_contact(author, pushName, e3.status.ONLINE, pushName, False, "")
+            
+            
+        self._on_group_message({'id':msgId, 'from':{'jid':author, 'realname':pushName}, 'type':'chat', 'body':msgData}, fromAttribute)
+        #TODO enable ack
+        #if wantsReceipt:
+        #    self.methodsInterface.call("message_ack", (jid, messageId))
+    
+    
     def onMessageReceived(self, messageId, jid, messageContent, timestamp, wantsReceipt, pushName, isBroadcast):
-        if timestamp is not None:
-            offline_stamp = time.strftime("%Y-%m-%d %H:%M:%S", timestamp)
-        print "%s (%s, %s): %s" % (pushName, jid, offline_stamp, messageContent)
+        print "You got a message!"
+        print "%s (%s, %s): %s" % (pushName, jid, timestamp, messageContent)
+        
+        if not self._check_if_contact_exist (jid):
+            self._add_contact(jid, pushName, e3.status.ONLINE, pushName, False, "")
                 
         self._on_message({'id':messageId, 'from':{'jid':jid, 'realname':pushName}, 'type':'chat', 'body':messageContent})
         #TODO enable ack
@@ -217,6 +246,39 @@ class Worker(e3.Worker): #, api.WAClient):
 
 
     # Emesene events handler    
+    #def _on_conversation_message_received(self, message):
+    #    e3.Logger.log_message(self.session, participants, msgobj, sent, cid = cid)
+        
+    def _on_group_message(self, message, group):
+        '''handle the reception of a group message'''
+        if message['type'] not in ('chat'):
+            log.error("Unhandled message: %s" % message)
+            return
+        if group in self.conversations:
+            cid = self.conversations[group]
+        else:   
+            cid = time.time()
+            self.conversations[group] = cid
+            self.rconversations[cid] = [group]
+            self.session.conv_first_action(cid, [group]) 
+            
+ 
+        body = message['body']
+        account = message['from']['jid']
+        realname = message['from']['realname']
+                   
+        if body is None:
+            type_ = e3.Message.TYPE_TYPING
+        else:
+            type_ = e3.Message.TYPE_MESSAGE
+
+        msgobj = e3.Message(type_, body, account, display_name=realname)
+        # override font size!
+        msgobj.style.size = self.session.config.i_font_size
+        self.session.conv_message(cid, group, msgobj)
+        # log message
+        e3.Logger.log_message(self.session, None, msgobj, False)     
+        
     def _on_message(self, message):
         '''handle the reception of a message'''
         if message['type'] not in ('chat'):
@@ -264,6 +326,7 @@ class Worker(e3.Worker): #, api.WAClient):
 
     def _handle_action_logout(self):
         '''handle Action.ACTION_LOGOUT'''
+        self.methodsInterface.call("disconnect")
         self.disconnect()
 
     def _handle_action_move_to_group(self, account, src_gid, dest_gid):
@@ -330,13 +393,14 @@ class Worker(e3.Worker): #, api.WAClient):
         if message.type not in (e3.Message.TYPE_MESSAGE, e3.Message.TYPE_TYPING, e3.Message.TYPE_NUDGE):
             return
 
+        print "send to " + str(cid) + str(self.rconversations)
         recipients = self.rconversations.get(cid, ())
         print recipients, self.rconversations, message.account
         for recipient in recipients:
             print "_handle_action_send_message " + recipient
             #print recipient.split('@')[0]
             #print message.body
-            msgId = self.methodsInterface.call("message_send", (recipient+"@s.whatsapp.net", message.body.encode('utf-8'))) #recipient, message.body))
+            msgId = self.methodsInterface.call("message_send", (recipient, message.body.encode('utf-8'))) #recipient, message.body))
 		    #self.sentCache[msgId] = [int(time.time()), message]
 
 

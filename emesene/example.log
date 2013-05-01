@@ -1,10 +1,200 @@
-INFO:whatsapp.Worker:Login succeeded for 393471217796
+INFO:whatsapp.Worker:Login succeeded for 393393321517
 DEBUG:pluginmanager:Imported plugins: 
 DEBUG:pluginmanager:Imported plugins: 
-DEBUG:gui.base.ConversationManager:Constructing a new conversation: 1367361376.005889
-DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367361376.005889
+DEBUG:gui.base.ConversationManager:Constructing a new conversation: 1367412109.059995
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.059995
 DEBUG:gui.base.ConversationManager:No similar conversation was found
 DEBUG:gui.base.ConversationManager:Returning a new conversation
-DEBUG:gui.base.ConversationManager:Closing conversation: 1367361376.005889
-DEBUG:gui.base.ConversationManager:Closing the conversation window
-DEBUG:e3.base.Worker:closing thread
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.059995
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.059995
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.059995
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.059995
+DEBUG:gui.base.ConversationManager:Message received: 1367412109.059995, 393471217796@s.whatsapp.net
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.059995
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.059995
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.059995
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.059995
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.059995
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.059995
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.059995
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.059995
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.059995
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.059995
+DEBUG:gui.base.ConversationManager:Message received: 1367412109.059995, 393471217796@s.whatsapp.net
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.059995
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.059995
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.059995
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.059995
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.059995
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.059995
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:No similar conversation was found
+DEBUG:gui.base.ConversationManager:Constructing a new conversation: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:No similar conversation was found
+DEBUG:gui.base.ConversationManager:Returning a new conversation
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Message received: 1367412109.080030, 393471217796-1367407451@g.us
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Message received: 1367412109.080030, 393471217796-1367407451@g.us
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Message received: 1367412109.080030, 393471217796-1367407451@g.us
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Message received: 1367412109.080030, 393471217796-1367407451@g.us
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Message received: 1367412109.080030, 393471217796-1367407451@g.us
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Message received: 1367412109.080030, 393471217796-1367407451@g.us
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Message received: 1367412109.080030, 393471217796-1367407451@g.us
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Message received: 1367412109.080030, 393471217796-1367407451@g.us
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Message received: 1367412109.080030, 393471217796-1367407451@g.us
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Message received: 1367412109.080030, 393471217796-1367407451@g.us
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Message received: 1367412109.080030, 393471217796-1367407451@g.us
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Message received: 1367412109.080030, 393471217796-1367407451@g.us
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Message received: 1367412109.080030, 393471217796-1367407451@g.us
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Message received: 1367412109.080030, 393471217796-1367407451@g.us
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Message received: 1367412109.080030, 393471217796-1367407451@g.us
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:Looking for conversations with the same cid: 1367412109.080030
+DEBUG:gui.base.ConversationManager:A similar conversation was found with the same cid: 1367412109.080030
